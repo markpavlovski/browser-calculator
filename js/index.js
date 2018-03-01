@@ -1,4 +1,5 @@
 const tilt = 5
+const shade = 40
 const displayLength = 14
 const calculator = document.querySelector("#calculator")
 const screen = document.querySelector("#screen")
@@ -27,12 +28,16 @@ document.addEventListener("mousemove",(event)=>{
     x: window.innerWidth/2,
     y: window.innerHeight/2
   }
-  angle = {
-    x: (event.x - center.x)/(window.innerWidth - center.x)*tilt,
-    y: (event.y - center.y)/(window.innerHeight - center.y)*tilt
+  delta = {
+    x: (event.x - center.x)/(window.innerWidth - center.x),
+    y: (event.y - center.y)/(window.innerHeight - center.y)
   }
-  calculator.style.transform = `perspective( 600px ) rotateY( ${angle.x}deg ) rotateX( ${-angle.y}deg )`;
+  calculator.style.transform = `perspective( 600px ) rotateY( ${delta.x * tilt}deg ) rotateX( ${-delta.y * tilt}deg )`;
+  /* offset-x | offset-y | blur-radius | spread-radius | color */
+  calculator.style.boxShadow = `${-delta.x * shade + 0}px ${-delta.y * shade + 0}px ${20}px ${0}px rgba(0, 0, 0, 0.2)`
 })
+
+
 
 // Calculating
 buttons.addEventListener("click",(event)=>{
