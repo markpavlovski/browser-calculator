@@ -3,11 +3,18 @@ const calculator = document.querySelector("#calculator")
 const screen = document.querySelector("#screen")
 const buttons = document.querySelector(".buttons")
 const operators = ["+","-","÷","x","C","="]
+const calculate = {
+  "+": (a,b) => a+b,
+  "-": (a,b) => a-b,
+  "x": (a,b) => a*b,
+  "÷": (a,b) => a/b
+}
+
 let leftNumber = 0
 let rightNumber = 0
 let operation = null
+let justCalculated = false
 let displayText = ""
-let z
 
 screen.innerText = displayText
 console.log(screen.innerText)
@@ -29,65 +36,49 @@ document.addEventListener("mousemove",(event)=>{
 // Calculating
 buttons.addEventListener("click",(event)=>{
   if (event.target.tagName === "SPAN"){
+
     const value = event.target.innerText
 
     if(operators.includes(value)){
+
       console.log("do the operation")
-      
-      switch(value){
 
-        case "C":
-          displayText = ""
+      if (value === "C"){
+
+        displayText = ""
+        operation = null
+
+      } else if (value === "=") {
+
+        if (operation && displayText){
+          rightNumber = Number(displayText.split(operation)[1])
+          console.log(Number(rightNumber))
+          displayText = calculate[operation](leftNumber,rightNumber)
           operation = null
-          break
+          justCalculated = true
+        }
+        operation = null
+      } else {
 
-        case "=":
-          displayText = ""
-          operation = null
-          break
-
-        case "+":
-          if (!operation){
-            leftNumber = displayText
-            console.log(Number(leftNumber))
-            displayText += value
-            operation = value
-          }
-          break
-
-        case "-":
-          if (!operation){
-            displayText += value
-            operation = value
-          }
-          break
-
-        case "x":
-          if (!operation){
-            displayText += value
-            operation = value
-          }
-          break
-
-        case "÷":
-          if (!operation){
-            displayText += value
-            operation = value
-          }
-          break
-
-        default:
-          break;
+        if (!operation && displayText){
+          leftNumber = Number(displayText)
+          console.log(Number(leftNumber))
+          displayText += value
+          operation = value
+        }
 
       }
+
     } else {
-      console.log("add another number")
-      displayText += value
+      if (justCalculated){
+        displayText = value
+      } else {
+        console.log("add another number")
+        displayText += value
+      }
+
     }
-
-
-
-
+  // justCalculated = false
   }
   screen.innerText = displayText
 })
