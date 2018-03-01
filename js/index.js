@@ -51,7 +51,6 @@ buttons.addEventListener("click",(event)=>{
         justCalculated = false
 
       } else if (value === "=") {
-
       // Deal with equals button
         if (operation && displayText){
           rightNumber = Number(displayText.split(operation)[1])
@@ -62,8 +61,6 @@ buttons.addEventListener("click",(event)=>{
         }
         operation = null
       } else {
-        if (displayText.length < displayLength){
-
       // Deal with operators
         if (!operation && displayText){
           leftNumber = Number(displayText)
@@ -72,27 +69,27 @@ buttons.addEventListener("click",(event)=>{
           operation = value
           justCalculated = false
         }
-      }
 
       }
     } else {
 
       // HANDLE NUMERIC INPUTS
-
+      console.log(justCalculated)
       if (justCalculated){
         displayText = value
       } else {
         console.log("add another number")
+        console.log(displayText.length)
+        console.log(displayLength)
         if (displayText.length < displayLength){
           displayText += value
         }
       }
       justCalculated = false
     }
-
   }
 
   // RENDER
-  screen.innerText = displayText
+  screen.innerText = displayText.toString().slice(0,displayLength)
 
 })
