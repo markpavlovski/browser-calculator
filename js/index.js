@@ -51,6 +51,8 @@ buttons.addEventListener("click",(event)=>{
         justCalculated = false
 
       } else if (value === "=") {
+        if (displayText.length < displayLength){
+
       // Deal with equals button
         if (operation && displayText){
           rightNumber = Number(displayText.split(operation)[1])
@@ -60,7 +62,7 @@ buttons.addEventListener("click",(event)=>{
           justCalculated = true
         }
         operation = null
-      } else {
+      }} else {
       // Deal with operators
         if (!operation && displayText){
           leftNumber = Number(displayText)
