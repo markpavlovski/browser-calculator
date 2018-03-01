@@ -34,7 +34,7 @@ document.addEventListener("mousemove",(event)=>{
   }
   calculator.style.transform = `perspective( 600px ) rotateY( ${delta.x * tilt}deg ) rotateX( ${-delta.y * tilt}deg )`;
   /* offset-x | offset-y | blur-radius | spread-radius | color */
-  calculator.style.boxShadow = `${-delta.x * shade + 0}px ${-delta.y * shade + 0}px ${20}px ${0}px rgba(0, 0, 0, 0.2)`
+  calculator.style.boxShadow = `${-delta.x * shade + 0}px ${-delta.y * shade + 0}px ${40}px ${0}px rgba(0, 0, 0, 0.4)`
 })
 
 
